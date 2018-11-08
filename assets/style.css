@@ -1,13 +1,15 @@
 .body {
-    background-color: rgb(177, 255, 229);
+    background-color: rgb(231, 248, 242);
 }
 .gif {
     margin: 5px;
     width: 80px;
     height: 40px;
     border-radius: 2px;
+    border: 1px solid rgb(38, 78, 65);
     font-family: 'Patrick Hand', cursive;
     font-size: 16pt;
+    background-color: aquamarine;
 }
 #gif-search {
     font-family: 'Patrick Hand', cursive;
@@ -28,6 +30,8 @@
     width: 120px;
     height: 40px;
     border-radius: 2px;
+    border: 1px solid rgb(38, 78, 65);
+    background-color: aquamarine;
 }
 #submit-text {
     margin-top: 10px;
