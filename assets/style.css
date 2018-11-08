@@ -1,0 +1,28 @@
+.body {
+    background-color: rgba(177, 228, 211, 0.589);
+}
+.gif {
+    margin: 5px;
+    width: 80px;
+    height: 40px;
+    border-radius: 2px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 16pt;
+}
+#gif-search {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 20pt;
+    padding-left: 6px;
+}
+#animal-input {
+    height: 30px;
+    width: 200px;
+}
+#add-animal {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 16pt;
+    margin: 5px;
+    width: 120px;
+    height: 40px;
+    border-radius: 2px;
+}

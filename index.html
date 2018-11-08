@@ -5,20 +5,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="assets/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
-    <script type="text/javascript" src="assets/javascript/app.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
+
 
     <title>GIPHY</title>
 </head>
 
-<body>
-    
+<body class="body">
+
+    <div id="buttons-view"></div>
+
+    <form id="gif-search">
+        <label for="gif-input" id="submit-text">Enter New Animal</label>
+        <input type="text" id="animal-input"><br>
+
+        <input id="add-animal" type="submit" value="Add Animal">
+    </form>
+
+    <div id="gifs-appear-here"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    // initial array of topics
+    var topics = ["Squirrel", "Deer", "Moose", "Rabbit", "Turkey", "Skunk", "Goose"];
+
+    // function to render buttons
+    function renderButtons() {
+        $('#buttons-view').empty();
+        for (var i = 0; i < topics.length; i++) {
+            var a = $('<button>');
+            a.addClass('gif');
+            a.attr('data-name', topics[i]);
+            a.text(topics[i]);
+            $('#buttons-view').append(a);
+        }
+    }
+
+    // add user input to topics array and buttons view
+    $('#add-animal').on('click', function(event) {
+        event.preventDefault();
+        var animal = $('#animal-input').val().trim();
+        topics.push(animal);
+        renderButtons();
+    })
+
+    // load gifs on user click
+    function displayGifs() {
+        var animal = $(this).attr('data-name');
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=fKBdhsGbNfk8kriGck7ZAZDkyonyGrqU&q=" + animal + "&limit=25&offset=0&rating=G&lang=en";
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response) {
+            var results = response.data;
+            console.log(results);
+
+            for(var i = 0; i < results.length; i++) {
+                var gifDiv = $('<div>');
+                var animalGif = $('<img>');
+
+                animalGif.attr('src', results[i].images.fixed_height_still.url);
+                animalGif.attr('data-still', results[i].images.fixed_height_still.url);
+                animalGif.attr('data-animate', results[i].images.fixed_height.url);
+                animalGif.attr('data-state', 'still')
+                animalGif.addClass('gif-image');
+
+                gifDiv.prepend(animalGif);
+
+                $('#gifs-appear-here').prepend(gifDiv);
+            }
+        })
+    };
+
+    function animateGifs(thisPassedInVal) {
+        console.log(thisPassedInVal)
+
+        if($(this).attr('data-state') === 'still') {
+            var value = $(this).attr('data-animate');
+            $(this).attr('src', value);
+            $(this).attr('data-state', 'animate');
+        }else {
+            var value = $(this).attr('data-still');
+            $(this).attr('src', value);
+            $(this).attr('data-state', 'still');
+        }
+    }
+
+    // click events to display gifs
+    $(document).on('click', '.gif', displayGifs);
+
+    // click events to animate/still gifs
+    $(document).on('click', '.gif-image', animateGifs);
+
+    // call renderButtons function
+    renderButtons();
+
+    </script>
 </body>
 </html>
