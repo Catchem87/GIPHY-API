@@ -1,5 +1,5 @@
 .body {
-    background-color: rgba(177, 228, 211, 0.589);
+    background-color: rgb(177, 255, 229);
 }
 .gif {
     margin: 5px;
@@ -17,6 +17,9 @@
 #animal-input {
     height: 30px;
     width: 200px;
+    margin: 5px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 16pt;
 }
 #add-animal {
     font-family: 'Patrick Hand', cursive;
@@ -25,4 +28,8 @@
     width: 120px;
     height: 40px;
     border-radius: 2px;
+}
+#submit-text {
+    margin-top: 10px;
+    margin-left: 5px;
 }

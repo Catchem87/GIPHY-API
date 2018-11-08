@@ -16,7 +16,7 @@
     <div id="buttons-view"></div>
 
     <form id="gif-search">
-        <label for="gif-input" id="submit-text">Enter New Animal</label>
+        <div id="submit-text">Enter New Animal</div>
         <input type="text" id="animal-input"><br>
 
         <input id="add-animal" type="submit" value="Add Animal">
@@ -48,6 +48,7 @@
         var animal = $('#animal-input').val().trim();
         topics.push(animal);
         renderButtons();
+        $('#animal-input').val("");
     })
 
     // load gifs on user click
